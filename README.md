@@ -52,7 +52,7 @@ Aplikasi mobile toko sederhana berbasis Flutter yang terhubung ke REST API CodeI
 
 ---
 
-### 🔍 Halaman Detail Produk
+### Halaman Detail Produk
 
 | Referensi Modul | Hasil Aplikasi |
 |:-:|:-:|
@@ -91,7 +91,7 @@ tokokita/
 └── screenshots/
 ```
 
-## ▶️ Cara Menjalankan
+## Cara Menjalankan
 
 ```bash
 cd tokokita
