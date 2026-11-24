@@ -2,7 +2,7 @@
 
 Aplikasi mobile toko sederhana berbasis Flutter yang terhubung ke REST API CodeIgniter 4 (`toko-api`).
 
-## 📋 Fitur
+## Fitur
 - Registrasi akun member
 - Login & Logout
 - Melihat daftar produk
@@ -11,16 +11,16 @@ Aplikasi mobile toko sederhana berbasis Flutter yang terhubung ke REST API CodeI
 - Ubah data produk
 - Hapus produk
 
-## 🛠️ Teknologi
+## Teknologi
 - **Frontend**: Flutter (Dart)
 - **Backend**: CodeIgniter 4 REST API
 - **Database**: MySQL
 
 ---
 
-## 📱 Screenshots
+## Screenshots
 
-### 🔐 Halaman Login
+### Halaman Login
 
 | Referensi Modul | Hasil Aplikasi |
 |:-:|:-:|
@@ -28,7 +28,7 @@ Aplikasi mobile toko sederhana berbasis Flutter yang terhubung ke REST API CodeI
 
 ---
 
-### 📝 Halaman Registrasi
+### Halaman Registrasi
 
 | Referensi Modul | Hasil Aplikasi |
 |:-:|:-:|
@@ -36,7 +36,7 @@ Aplikasi mobile toko sederhana berbasis Flutter yang terhubung ke REST API CodeI
 
 ---
 
-### 📦 Halaman List Produk
+### Halaman List Produk
 
 | Referensi Modul | Hasil Aplikasi |
 |:-:|:-:|
@@ -44,7 +44,7 @@ Aplikasi mobile toko sederhana berbasis Flutter yang terhubung ke REST API CodeI
 
 ---
 
-### ➕ Halaman Tambah Produk
+### Halaman Tambah Produk
 
 | Referensi Modul | Hasil Aplikasi |
 |:-:|:-:|
@@ -64,7 +64,7 @@ Aplikasi mobile toko sederhana berbasis Flutter yang terhubung ke REST API CodeI
 
 ---
 
-### ✏️ Halaman Ubah Produk
+### Halaman Ubah Produk
 
 | Referensi Modul | Hasil Aplikasi |
 |:-:|:-:|
@@ -72,7 +72,7 @@ Aplikasi mobile toko sederhana berbasis Flutter yang terhubung ke REST API CodeI
 
 ---
 
-## 📁 Struktur Project
+## Struktur Project
 
 ```
 tokokita/
