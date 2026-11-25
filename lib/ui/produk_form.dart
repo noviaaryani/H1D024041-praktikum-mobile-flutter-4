@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tokokita/bloc/produk_bloc.dart';
 import 'package:tokokita/model/produk.dart';
+import 'package:tokokita/ui/produk_page.dart';
+import 'package:tokokita/widget/warning_dialog.dart';
 
-// ignore: must_be_immutable
 class ProdukForm extends StatefulWidget {
   Produk? produk;
 
@@ -32,10 +34,10 @@ class _ProdukFormState extends State<ProdukForm> {
       setState(() {
         judul = "UBAH PRODUK";
         tombolSubmit = "UBAH";
-        _kodeProdukTextboxController.text = widget.produk!.kodeProduk ?? '';
-        _namaProdukTextboxController.text = widget.produk!.namaProduk ?? '';
+        _kodeProdukTextboxController.text = widget.produk!.kodeProduk!;
+        _namaProdukTextboxController.text = widget.produk!.namaProduk!;
         _hargaProdukTextboxController.text =
-            widget.produk!.hargaProduk?.toString() ?? '';
+            widget.produk!.hargaProduk.toString();
       });
     } else {
       judul = "TAMBAH PRODUK";
@@ -46,14 +48,7 @@ class _ProdukFormState extends State<ProdukForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          judul,
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.blue,
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
+      appBar: AppBar(title: Text(judul)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -64,7 +59,7 @@ class _ProdukFormState extends State<ProdukForm> {
                 _kodeProdukTextField(),
                 _namaProdukTextField(),
                 _hargaProdukTextField(),
-                _buttonSubmit(),
+                _buttonSubmit()
               ],
             ),
           ),
@@ -117,10 +112,78 @@ class _ProdukFormState extends State<ProdukForm> {
 
   Widget _buttonSubmit() {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.grey[200],
+        foregroundColor: Colors.black87,
+        elevation: 2,
+      ),
       child: Text(tombolSubmit),
       onPressed: () {
         var validate = _formKey.currentState!.validate();
+        if (validate) {
+          if (!_isLoading) {
+            if (widget.produk != null) {
+              ubah();
+            } else {
+              simpan();
+            }
+          }
+        }
       },
     );
+  }
+
+  simpan() {
+    setState(() {
+      _isLoading = true;
+    });
+    Produk createProduk = Produk(id: null);
+    createProduk.kodeProduk = _kodeProdukTextboxController.text;
+    createProduk.namaProduk = _namaProdukTextboxController.text;
+    createProduk.hargaProduk = int.parse(_hargaProdukTextboxController.text);
+    ProdukBloc.addProduk(produk: createProduk).then((value) {
+      if (!mounted) return;
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const ProdukPage()),
+          (route) => false);
+    }, onError: (error) {
+      if (!mounted) return;
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => const WarningDialog(
+                description: "Simpan gagal, silahkan coba lagi",
+              ));
+    });
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  ubah() {
+    setState(() {
+      _isLoading = true;
+    });
+    Produk updateProduk = Produk(id: null);
+    updateProduk.id = widget.produk!.id;
+    updateProduk.kodeProduk = _kodeProdukTextboxController.text;
+    updateProduk.namaProduk = _namaProdukTextboxController.text;
+    updateProduk.hargaProduk = int.parse(_hargaProdukTextboxController.text);
+    ProdukBloc.updateProduk(produk: updateProduk).then((value) {
+      if (!mounted) return;
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const ProdukPage()),
+          (route) => false);
+    }, onError: (error) {
+      print("Error update: $error");
+      if (!mounted) return;
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => WarningDialog(
+                description: "Permintaan ubah data gagal: $error",
+              ));
+    });
+    setState(() {
+      _isLoading = false;
+    });
   }
 }
